@@ -2,6 +2,8 @@ package com;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.model.EngineParams;
+import com.model.WebSocketEntity;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -19,16 +21,23 @@ import java.net.URI;
  * @author viruser
  */
 public class Client extends WebSocketClient {
-    private static final String APP_ID = "6BB241B0A66C46239520231206145533";// 应用Id
-    private static final String APP_KEY = "03AB767E8E37882293618F11B8A5C0A3";// 应用key
+    /**
+     * newEngineType：引擎类型码
+     * 说明：中文普通话、通用、16k
+     */
     private static final String NEW_ENGINE_TYPE = "2101";
-    private static final String STREAM = "continue";// 是否连续识别，sentence：单句模式，最长1分钟；continue：连续识别模式，最长2小时
-    private static final int SEX = 0;
-    private static final int VAD_EOS = 200;
-    private static final String WS_URL = "ws://speech.ths8.com:6011/SpeechDictation/v1/ws/";
-    private static Client myClient;
 
-    public InputStream inputStream;
+    /**
+     * 是否开启性别识别 0-否 1-是，默认为 0
+     */
+    private static final int SEX = 0;
+
+    /**
+     * 静音检测后端超时时长，单位 ms
+     */
+    private static final int VAD_EOS = 200;
+    private static Client myClient;
+    private InputStream inputStream;
 
     public Client(URI serverUri, InputStream inputStream) {
         super(serverUri);
@@ -43,20 +52,23 @@ public class Client extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake arg0) {
         System.out.println("------ MyWebSocket onOpen ------");
+
         // 引擎参数
-        Params params = new Params();
-        /**  模型编号 */
-        params.setNewEngineType(NEW_ENGINE_TYPE);
-        /**  性别开关  */
-        params.setSex(SEX);
+        EngineParams engineParams = new EngineParams();
+        // 设置模型编号
+        engineParams.setNewEngineType(NEW_ENGINE_TYPE);
+        // 设置性别开关
+        engineParams.setSex(SEX);
+
         // 往 WebSocket 服务端发送数据
         WebSocketEntity entity = new WebSocketEntity();
-        /** 消息类型：申请令牌  */
+        // 设置发送申请令牌指令
         entity.setAction("apply_token");
-        /** 设置 后端静音超时  */
+        // 设置静音检测后端超时时长为 200ms
         entity.setVadEos(VAD_EOS);
-        /** 引擎参数  */
-        entity.setParams(params);
+        // 设置引擎参数
+        entity.setEngineParams(engineParams);
+
         // 申请令牌
         myClient.send(JSON.toJSONString(entity));
     }
@@ -77,7 +89,7 @@ public class Client extends WebSocketClient {
         String action = result.getString("action");
 
         // 申请令牌
-        if (action.equalsIgnoreCase("apply_token")) {
+        if ("apply_token".equalsIgnoreCase(action)) {
             String data = result.getString("data");
             JSONObject tokenData = JSONObject.parseObject(data);
             if (0 == tokenData.getInteger("code")) {
@@ -87,17 +99,25 @@ public class Client extends WebSocketClient {
             }
         }
 
-        if (action.equalsIgnoreCase("realtime_result")) {
+        // 如果 action 是接收实时结果指令
+        if ("realtime_result".equalsIgnoreCase(action)) {
             System.out.println("实时识别结果：" + result);
         }
-        if (action.equalsIgnoreCase("sentence_result")) {
+        // 如果 action 是接收静音检测断句结果指令
+        if ("sentence_result".equalsIgnoreCase(action)) {
             System.out.println("静音检测断句，最终识别结果：" + result);
         }
-        if (action.equalsIgnoreCase("asr_result")) {
+        // 如果 action 是接收最终识别结果指令
+        if ("asr_result".equalsIgnoreCase(action)) {
             System.out.println("最终识别结果：" + result);
         }
-        if (action.equalsIgnoreCase("asr_end")) {
+        // 如果 action 是接收识别结束指令
+        if ("asr_end".equalsIgnoreCase(action)) {
             System.out.println("识别结束：" + result);
+        }
+        // 未匹配到指令或者指令异常
+        if ("no_command".equalsIgnoreCase(action)) {
+            System.out.println("未匹配到指令或者指令异常：" + result);
         }
     }
 }

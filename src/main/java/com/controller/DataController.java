@@ -19,11 +19,26 @@ import java.net.URISyntaxException;
 @RestController
 @CrossOrigin
 public class DataController {
-
-    private static final String APP_ID = "6BB241B0A66C46239520231206145533";// 应用Id
-    private static final String APP_KEY = "03AB767E8E37882293618F11B8A5C0A3";// 应用key
-    private static final String STREAM = "continue";// 是否连续识别，sentence：单句模式，最长1分钟；continue：连续识别模式，最长2小时
+    /**
+     * 接口地址
+     */
     private static final String WS_URL = "ws://speech.ths8.com:6011/SpeechDictation/v1/ws/";
+
+    /**
+     * 应用 Id
+     */
+    private static final String APP_ID = "6BB241B0A66C46239520231206145533";
+    /**
+     * 应用 key
+     */
+    private static final String APP_KEY = "03AB767E8E37882293618F11B8A5C0A3";
+    /**
+     * 是否连续识别
+     * sentence：单句模式，最长 1 分钟
+     * continue：连续识别模式，最长 2 小时
+     */
+    private static final String STREAM = "continue";
+
     private static Client myClient;
 
     @PostMapping("/upload")
@@ -32,6 +47,7 @@ public class DataController {
         // WebSocket 服务端 URI
         URI url = new URI(WS_URL + APP_ID + "/" + APP_KEY + "/" + STREAM);
         myClient = new Client(url, pcmFile.getInputStream());
+
         return "succeed";
     }
 }
