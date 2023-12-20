@@ -1,0 +1,52 @@
+{
+  "globalConfig" : {
+    "settingList" : [ {
+      "name" : "Cache-Control",
+      "value" : "no-cache",
+      "type" : "Header",
+      "selected" : true
+    }, {
+      "name" : "User-Agent",
+      "value" : "RestAgent",
+      "type" : "Header",
+      "selected" : true
+    }, {
+      "name" : "Accept",
+      "value" : "*/*",
+      "type" : "Header",
+      "selected" : true
+    }, {
+      "name" : "Accept-Encoding",
+      "value" : "gzip, deflate, br",
+      "type" : "Header",
+      "selected" : true
+    }, {
+      "name" : "Connection",
+      "value" : "keep-alive",
+      "type" : "Header",
+      "selected" : true
+    }, {
+      "name" : "Content-Type",
+      "value" : "application/json",
+      "type" : "Header",
+      "selected" : true
+    } ],
+    "test" : ""
+  },
+  "env" : {
+    "Default" : {
+      "name" : "Default",
+      "selected" : true,
+      "context" : null,
+      "test" : "",
+      "https" : false,
+      "host" : "localhost",
+      "port" : 8080,
+      "settingList" : [ ]
+    }
+  },
+  "userCaseMap" : { },
+  "requestConfig" : { },
+  "swaggerConfigList" : [ ],
+  "yapiList" : [ ]
+}
