@@ -2,8 +2,6 @@ package com;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.model.EngineParams;
-import com.model.WebSocketEntity;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -37,7 +35,7 @@ public class Client extends WebSocketClient {
      */
     private static final int VAD_EOS = 200;
     private static Client myClient;
-    private InputStream inputStream;
+    public InputStream inputStream;
 
     public Client(URI serverUri, InputStream inputStream) {
         super(serverUri);
@@ -52,13 +50,12 @@ public class Client extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake arg0) {
         System.out.println("------ MyWebSocket onOpen ------");
-
         // 引擎参数
-        EngineParams engineParams = new EngineParams();
+        Params params = new Params();
         // 设置模型编号
-        engineParams.setNewEngineType(NEW_ENGINE_TYPE);
+        params.setNewEngineType(NEW_ENGINE_TYPE);
         // 设置性别开关
-        engineParams.setSex(SEX);
+        params.setSex(SEX);
 
         // 往 WebSocket 服务端发送数据
         WebSocketEntity entity = new WebSocketEntity();
@@ -67,7 +64,7 @@ public class Client extends WebSocketClient {
         // 设置静音检测后端超时时长为 200ms
         entity.setVadEos(VAD_EOS);
         // 设置引擎参数
-        entity.setEngineParams(engineParams);
+        entity.setParams(params);
 
         // 申请令牌
         myClient.send(JSON.toJSONString(entity));
@@ -89,7 +86,7 @@ public class Client extends WebSocketClient {
         String action = result.getString("action");
 
         // 申请令牌
-        if ("apply_token".equalsIgnoreCase(action)) {
+        if (action.equalsIgnoreCase("apply_token")) {
             String data = result.getString("data");
             JSONObject tokenData = JSONObject.parseObject(data);
             if (0 == tokenData.getInteger("code")) {
@@ -100,24 +97,20 @@ public class Client extends WebSocketClient {
         }
 
         // 如果 action 是接收实时结果指令
-        if ("realtime_result".equalsIgnoreCase(action)) {
+        if (action.equalsIgnoreCase("realtime_result")) {
             System.out.println("实时识别结果：" + result);
         }
         // 如果 action 是接收静音检测断句结果指令
-        if ("sentence_result".equalsIgnoreCase(action)) {
+        if (action.equalsIgnoreCase("sentence_result")) {
             System.out.println("静音检测断句，最终识别结果：" + result);
         }
         // 如果 action 是接收最终识别结果指令
-        if ("asr_result".equalsIgnoreCase(action)) {
+        if (action.equalsIgnoreCase("asr_result")) {
             System.out.println("最终识别结果：" + result);
         }
         // 如果 action 是接收识别结束指令
-        if ("asr_end".equalsIgnoreCase(action)) {
+        if (action.equalsIgnoreCase("asr_end")) {
             System.out.println("识别结束：" + result);
-        }
-        // 未匹配到指令或者指令异常
-        if ("no_command".equalsIgnoreCase(action)) {
-            System.out.println("未匹配到指令或者指令异常：" + result);
         }
     }
 }

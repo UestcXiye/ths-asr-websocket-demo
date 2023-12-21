@@ -1,7 +1,6 @@
 package com;
 
 import com.alibaba.fastjson.JSON;
-import com.model.WebSocketEntity;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.InputStream;
@@ -39,13 +38,21 @@ public class FileUtil extends Thread {
 
     @Async
     public void sendData() {
+         //String workSpacePath = System.getProperty("user.dir");
+         //String filePath = workSpacePath + "\\16k.pcm";
         try {
+            //File file = new File(filePath);
+            //if (!file.exists()) {
+            //    System.out.println("==== 文件不存在 ====");
+            //    return;
+            //}
+            // FileInputStream fileInputStream = new FileInputStream(pcmFile);
             byte[] b = new byte[size];
             int n;
 
             WebSocketEntity entity = new WebSocketEntity();
             /*
-                消息类型：发送数据
+              消息类型：发送数据
              */
             entity.setAction("send_data");
             // 发送音频数据包

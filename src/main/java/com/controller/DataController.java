@@ -38,7 +38,6 @@ public class DataController {
      * continue：连续识别模式，最长 2 小时
      */
     private static final String STREAM = "continue";
-
     private static Client myClient;
 
     @PostMapping("/upload")
@@ -47,7 +46,6 @@ public class DataController {
         // WebSocket 服务端 URI
         URI url = new URI(WS_URL + APP_ID + "/" + APP_KEY + "/" + STREAM);
         myClient = new Client(url, pcmFile.getInputStream());
-
         return "succeed";
     }
 }
