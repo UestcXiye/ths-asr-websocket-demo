@@ -2,6 +2,8 @@ package com;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.model.Params;
+import com.model.WebSocketEntity;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -50,6 +52,7 @@ public class Client extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake arg0) {
         System.out.println("------ MyWebSocket onOpen ------");
+
         // 引擎参数
         Params params = new Params();
         // 设置模型编号
@@ -86,7 +89,7 @@ public class Client extends WebSocketClient {
         String action = result.getString("action");
 
         // 申请令牌
-        if (action.equalsIgnoreCase("apply_token")) {
+        if ("apply_token".equalsIgnoreCase(action)) {
             String data = result.getString("data");
             JSONObject tokenData = JSONObject.parseObject(data);
             if (0 == tokenData.getInteger("code")) {
@@ -97,20 +100,24 @@ public class Client extends WebSocketClient {
         }
 
         // 如果 action 是接收实时结果指令
-        if (action.equalsIgnoreCase("realtime_result")) {
+        if ("realtime_result".equalsIgnoreCase(action)) {
             System.out.println("实时识别结果：" + result);
         }
         // 如果 action 是接收静音检测断句结果指令
-        if (action.equalsIgnoreCase("sentence_result")) {
+        if ("sentence_result".equalsIgnoreCase(action)) {
             System.out.println("静音检测断句，最终识别结果：" + result);
         }
         // 如果 action 是接收最终识别结果指令
-        if (action.equalsIgnoreCase("asr_result")) {
+        if ("asr_result".equalsIgnoreCase(action)) {
             System.out.println("最终识别结果：" + result);
         }
         // 如果 action 是接收识别结束指令
-        if (action.equalsIgnoreCase("asr_end")) {
+        if ("asr_end".equalsIgnoreCase(action)) {
             System.out.println("识别结束：" + result);
+        }
+        // 如果 action 是未匹配到指令或者指令异常
+        if ("no_command".equalsIgnoreCase((action))) {
+            System.out.println("未匹配到指令或者指令异常：" + result);
         }
     }
 }

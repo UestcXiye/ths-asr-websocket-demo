@@ -46,6 +46,7 @@ public class DataController {
         // WebSocket 服务端 URI
         URI url = new URI(WS_URL + APP_ID + "/" + APP_KEY + "/" + STREAM);
         myClient = new Client(url, pcmFile.getInputStream());
+
         return "succeed";
     }
 }
