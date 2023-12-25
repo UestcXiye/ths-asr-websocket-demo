@@ -102,6 +102,14 @@ public class Client extends WebSocketClient {
         // 如果 action 是接收实时结果指令
         if ("realtime_result".equalsIgnoreCase(action)) {
             System.out.println("实时识别结果：" + result);
+            /*
+              result 是一个 JSONObject，内容如下：
+              "msg":"处理成功"
+              "reqCode":"ws_6ebf223db239454e87960256e0eb1a82"
+              "code":"0"
+              "data":"现在开始识别，这是一段录音。"
+              "action":"realtime_result"
+             */
         }
         // 如果 action 是接收静音检测断句结果指令
         if ("sentence_result".equalsIgnoreCase(action)) {
@@ -110,6 +118,21 @@ public class Client extends WebSocketClient {
         // 如果 action 是接收最终识别结果指令
         if ("asr_result".equalsIgnoreCase(action)) {
             System.out.println("最终识别结果：" + result);
+            /*
+              result 是一个 JSONObject，内容如下：
+              "msg":"处理成功"
+              "reqCode":"ws_6ebf223db239454e87960256e0eb1a82"
+              "code":"0"
+              "data": {
+                  "answer":"现在开始识别，这是一段录音。"
+                  "data":""
+                  "emotion":""
+                  "logId":""
+                  "userNumber":""
+                  "extMsg":""
+              }
+              "action":"asr_result"
+             */
         }
         // 如果 action 是接收识别结束指令
         if ("asr_end".equalsIgnoreCase(action)) {

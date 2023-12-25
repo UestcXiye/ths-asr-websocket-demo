@@ -40,7 +40,7 @@ public class DataController {
     private static final String STREAM = "continue";
     private static Client myClient;
 
-    @PostMapping("/upload")
+    @PostMapping("/uploadPCMRecord")
     @ResponseBody
     public String getPCMFile(@RequestParam("file") MultipartFile pcmFile) throws IOException, URISyntaxException {
         // WebSocket 服务端 URI
