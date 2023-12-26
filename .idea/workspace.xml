@@ -8,8 +8,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controller/DataController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/FileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/FileUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/controller/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/controller/DataController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +197,10 @@
       <workItem from="1703147789582" duration="3479000" />
       <workItem from="1703226000085" duration="6081000" />
       <workItem from="1703246238623" duration="1221000" />
-      <workItem from="1703489137321" duration="822000" />
+      <workItem from="1703489137321" duration="7224000" />
+      <workItem from="1703506081770" duration="3785000" />
+      <workItem from="1703551729618" duration="166000" />
+      <workItem from="1703552105692" duration="8163000" />
     </task>
     <servers />
   </component>

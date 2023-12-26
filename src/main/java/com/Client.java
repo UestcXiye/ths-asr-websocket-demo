@@ -49,6 +49,9 @@ public class Client extends WebSocketClient {
         myClient.connect();
     }
 
+    /**
+     * 连接建立后触发的方法
+     */
     @Override
     public void onOpen(ServerHandshake arg0) {
         System.out.println("------ MyWebSocket onOpen ------");
@@ -73,16 +76,25 @@ public class Client extends WebSocketClient {
         myClient.send(JSON.toJSONString(entity));
     }
 
+    /**
+     * 连接关闭后触发的方法
+     */
     @Override
     public void onClose(int arg0, String arg1, boolean arg2) {
         System.out.println("------ MyWebSocket onClose ------");
     }
 
+    /**
+     * 发生错误时触发的方法
+     */
     @Override
     public void onError(Exception arg0) {
         System.out.println("------ MyWebSocket onError ------");
     }
 
+    /**
+     * 客户端接收服务端数据时触发的方法
+     */
     @Override
     public void onMessage(String arg0) {
         JSONObject result = JSON.parseObject(arg0);

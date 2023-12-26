@@ -42,7 +42,7 @@ public class DataController {
 
     @PostMapping("/uploadPCMRecord")
     @ResponseBody
-    public String getPCMFile(@RequestParam("file") MultipartFile pcmFile) throws IOException, URISyntaxException {
+    public String uploadPCMRecord(@RequestParam("file") MultipartFile pcmFile) throws IOException, URISyntaxException {
         // WebSocket 服务端 URI
         URI url = new URI(WS_URL + APP_ID + "/" + APP_KEY + "/" + STREAM);
         myClient = new Client(url, pcmFile.getInputStream());
