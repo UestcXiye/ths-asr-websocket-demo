@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="587b32f4-db42-46f9-8920-2a34eed01f8b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/controller/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/controller/DataController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/websocket/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/websocket/WebSocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/asr-test-3.0.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/asr-test-3.0.2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/controller/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/controller/DataController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +43,9 @@
         <option name="userSettingsFile" value="C:\Users\81228\Documents\Program\Java Project\ths-asr-websocket-demo\pom.xml" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -200,7 +208,11 @@
       <workItem from="1703489137321" duration="7224000" />
       <workItem from="1703506081770" duration="3785000" />
       <workItem from="1703551729618" duration="166000" />
-      <workItem from="1703552105692" duration="8163000" />
+      <workItem from="1703552105692" duration="16037000" />
+      <workItem from="1703643928749" duration="9038000" />
+      <workItem from="1703662712043" duration="651000" />
+      <workItem from="1703663417237" duration="5737000" />
+      <workItem from="1703681096642" duration="3024000" />
     </task>
     <servers />
   </component>

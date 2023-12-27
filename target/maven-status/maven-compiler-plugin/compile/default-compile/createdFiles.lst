@@ -1,6 +1,8 @@
 com\Client.class
 com\MainApplication.class
+com\websocket\WebSocketServer.class
 com\controller\DataController.class
-com\Params.class
-com\WebSocketEntity.class
+com\model\WebSocketEntity.class
+com\model\Params.class
+com\websocket\WebSocketConfig.class
 com\FileUtil.class
