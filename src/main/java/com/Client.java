@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.model.Params;
 import com.model.WebSocketEntity;
+import com.websocket.WebSocketServer;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
@@ -36,11 +37,15 @@ public class Client extends WebSocketClient {
      * 静音检测后端超时时长，单位 ms
      */
     private static final int VAD_EOS = 200;
+
     private static Client myClient;
     public InputStream inputStream;
+    private static WebSocketServer webSocketServer;
+    private String userId;
 
-    public Client(URI serverUri, InputStream inputStream) {
+    public Client(String userId, URI serverUri, InputStream inputStream) {
         super(serverUri);
+        this.userId = userId;
         this.inputStream = inputStream;
         if (myClient == null) {
             // 建立链接，需要加锁
@@ -122,6 +127,11 @@ public class Client extends WebSocketClient {
               "data":"现在开始识别，这是一段录音。"
               "action":"realtime_result"
              */
+            if ("0".equalsIgnoreCase(result.getString("code"))) {
+                String message = result.getString("data");
+                webSocketServer = new WebSocketServer();
+                webSocketServer.sendOneMessage(userId, message);
+            }
         }
         // 如果 action 是接收静音检测断句结果指令
         if ("sentence_result".equalsIgnoreCase(action)) {
@@ -145,6 +155,11 @@ public class Client extends WebSocketClient {
               }
               "action":"asr_result"
              */
+            if ("0".equalsIgnoreCase(result.getString("code"))) {
+                String message = result.getJSONObject("data").getString("answer");
+                webSocketServer = new WebSocketServer();
+                webSocketServer.sendOneMessage(userId, message);
+            }
         }
         // 如果 action 是接收识别结束指令
         if ("asr_end".equalsIgnoreCase(action)) {

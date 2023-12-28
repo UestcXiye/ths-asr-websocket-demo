@@ -1,6 +1,7 @@
 package com.websocket;
 
 import com.Client;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -49,6 +50,8 @@ public class WebSocketServer {
     private static final String STREAM = "continue";
     private static Client myClient;
 
+    private static WebSocketServer myServer;
+
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的
      */
@@ -71,6 +74,11 @@ public class WebSocketServer {
     private static ConcurrentHashMap<String, WebSocketServer> webSocketMap = new ConcurrentHashMap<>();
 
 
+    public WebSocketServer() {
+        if(myServer == null) {
+            myServer = this;
+        }
+    }
     /**
      * 连接建立成功调用的方法
      *
@@ -93,7 +101,7 @@ public class WebSocketServer {
                 addOnlineCount();
             }
             log.info("【WebSocket 消息】有新的连接，用户 ID：" + userId + "，当前在线人数为：" + getOnlineCount());
-            sendMessage("连接成功");
+            // sendMessage("连接成功");
         } catch (Exception e) {
         }
     }
@@ -132,7 +140,7 @@ public class WebSocketServer {
         // System.out.println("音频数据报文：" + message);
         // WebSocket 服务端 URI
         URI url = new URI(WS_URL + APP_ID + "/" + APP_KEY + "/" + STREAM);
-        myClient = new Client(url, new ByteArrayInputStream(message.array()));
+        myClient = new Client(this.userId, url, new ByteArrayInputStream(message.array()));
     }
 
     /**
@@ -212,7 +220,9 @@ public class WebSocketServer {
         this.session.getAsyncRemote().sendText(message);
     }
 
-
+    public void sendMessage(JSONObject jsonObject) {
+        this.session.getAsyncRemote().sendObject(jsonObject);
+    }
     /**
      * 向指定客户端发送消息
      *
